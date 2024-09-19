@@ -1,73 +1,109 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { DragDropContext, DropResult } from '@hello-pangea/dnd';
 import axios from 'axios';
-import { ColumnCard } from './column-card';
 import { useRecoilValue } from 'recoil';
 import { newTodoState } from '@/app/state/atom';
+import { ColumnCard } from '@/components/column-card';
 
 export interface Todo {
-  _id: string;  
+  _id: string;
   title: string;
   status: 'todo' | 'inProgress' | 'done';
-  description?: string; 
+  description?: string;
   priority: 'low' | 'medium' | 'high';
 }
 
+const columns = ['todo', 'inProgress', 'done'];
 
 const KanbanBoard: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const newTodo = useRecoilValue(newTodoState);
 
-
-  useEffect(() => {
-    fetchTodos();
-  }, [newTodo]);
-
-  const fetchTodos = async () => {
+  const fetchTodos = useCallback(async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/todos', {
+      const response = await axios.get<Todo[]>('http://localhost:3000/api/todos', {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       setTodos(response.data);
     } catch (error) {
       console.error('Error fetching todos:', error);
     }
-  };
+  }, []);
 
+  useEffect(() => {
+    fetchTodos();
+  }, [fetchTodos, newTodo]);
 
-
-  const onDragEnd = async (result: DropResult) => {
-    if (!result.destination) return;
-
+  const onDragEnd = useCallback(async (result: DropResult) => {
     const { source, destination, draggableId } = result;
-
-    if (source.droppableId !== destination.droppableId) {
-      try {
-        await axios.patch(
-          `http://localhost:3000/api/todos/${draggableId}`,
-          { status: destination.droppableId },
-          { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
-        );
-        fetchTodos();
-      } catch (error) {
-        console.error('Error updating todo status:', error);
-      }
+  
+    if (!destination) return;
+  
+    if (
+      source.droppableId === destination.droppableId &&
+      source.index === destination.index
+    ) {
+      return;
     }
-  };
+  
+    setTodos((prevTodos) => {
+      const newTodos = Array.from(prevTodos);
+      const todoIndex = newTodos.findIndex(todo => todo._id === draggableId);
+      if (todoIndex === -1) return prevTodos; 
+  
+      const [reorderedItem] = newTodos.splice(todoIndex, 1);
+      const updatedItem = {
+        ...reorderedItem,
+        status: destination.droppableId as 'todo' | 'inProgress' | 'done',
+      };
+  
+      const insertIndex = newTodos.filter(todo => todo.status === destination.droppableId).length;
+      newTodos.splice(insertIndex, 0, updatedItem);
+  
+      return newTodos;
+    });
+  
+    try {
+      await axios.patch(
+        `http://localhost:3000/api/todos/${draggableId}`,
+        { status: destination.droppableId },
+        { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+      );
+    } catch (error) {
+      console.error('Error updating todo status:', error);
+      fetchTodos(); 
+    }
+  }, [fetchTodos]);
 
-  const columns = ['todo', 'inProgress', 'done'];
+  const handleDelete = useCallback(async (id: string) => {
+    try {
+      await axios.delete(`http://localhost:3000/api/todos/${id}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      });
+      setTodos((prevTodos) => prevTodos.filter((todo) => todo._id !== id));
+    } catch (error) {
+      console.error('Error deleting todo:', error);
+    }
+  }, []);
+
+  const columnTodos = useMemo(() => {
+    return columns.reduce((acc, column) => {
+      acc[column] = todos.filter((todo) => todo.status === column);
+      return acc;
+    }, {} as Record<string, Todo[]>);
+  }, [todos]);
 
   return (
-    <div className="container mx-auto p-4 mt-6">
+    <div className="container mx-auto p-4 mt-6 bg-zinc-950">
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="flex justify-between">
           {columns.map((column) => (
             <ColumnCard
               key={column}
               column={column}
-              todos={todos.filter((todo) => todo.status === column)}
+              todos={columnTodos[column]}
             />
           ))}
         </div>
@@ -76,4 +112,4 @@ const KanbanBoard: React.FC = () => {
   );
 };
 
-export default KanbanBoard;
+export default React.memo(KanbanBoard);

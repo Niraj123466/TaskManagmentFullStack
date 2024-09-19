@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/dialog";
 import CreateTodoForm from "@/components/form/create-form";
 import { useState } from "react";
+import { Button } from "./ui/button";
+import { Plus } from "lucide-react";
 
 const NewTodoModal = () => {
   const [open, setOpen] = useState(false);
@@ -16,9 +18,7 @@ const NewTodoModal = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <h3 className="text-sm lg:text-3xl bg-gradient-to-r from-zinc-900 via-zinc-600 to-zinc-400 bg-clip-text text-transparent font-black hover:cursor-pointer ">
-          Create Job
-        </h3>
+       <Button variant={"outline"} className=" border-2 border-zinc-200 text-white hover:bg-zinc-900 hover:text-white "> <Plus className="h-4 w-4 text-white"/> Add task</Button>
       </DialogTrigger>
       <DialogContent className="bg-zinc-950">
         <DialogHeader>
