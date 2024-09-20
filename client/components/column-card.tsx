@@ -3,7 +3,6 @@ import { Droppable } from '@hello-pangea/dnd';
 import { Card, CardContent } from './ui/card';
 import { TodoCard } from './todo-card';
 import { Todo } from "./kanban";
-import { Circle } from 'lucide-react';
 
 interface ColumnCardProps {
   column: string;

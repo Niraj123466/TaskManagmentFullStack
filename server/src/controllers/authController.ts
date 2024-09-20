@@ -60,19 +60,19 @@ export const signin = async (req: Request, res: Response) => {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
 
-
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
 
+
     const token = jwt.sign(
-      { userId: user._id },
+      { userId: user._id, username: user.username }, 
       process.env.JWT_SECRET as string,
       { expiresIn: '1h' }
     );
 
-    res.status(200).json({ token });
+    res.status(200).json({ token, username: user.username });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return res.status(400).json({

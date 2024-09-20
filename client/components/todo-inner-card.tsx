@@ -1,13 +1,12 @@
 import React from 'react';
-import { Draggable } from '@hello-pangea/dnd';
 import { Trash2 } from 'lucide-react';
 import { Todo } from "./kanban";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
 import { Separator } from './ui/separator';
 import axios from 'axios';
+import EditTodoModal from './edit-todo-modal';
 import { useSetRecoilState } from 'recoil';
 import { todosState } from '@/app/state/atom';
-import EditTodoModal from './edit-todo-modal';
 
 interface TodoCardProps {
   todo: Todo;
@@ -26,8 +25,9 @@ const statusColors = {
   done: 'bg-gray-200 text-gray-700 border-gray-600',
 };
 
-export const TodoCard: React.FC<TodoCardProps> = ({ todo, index }) => {
+export const TodoInnerCard: React.FC<TodoCardProps> = ({ todo, index }) => {
   const setTodos = useSetRecoilState(todosState);
+  
 
   const handleDelete = async () => {
     try {
@@ -41,12 +41,7 @@ export const TodoCard: React.FC<TodoCardProps> = ({ todo, index }) => {
   };
 
   return (
-    <Draggable draggableId={todo._id} index={index}>
-      {(provided) => (
         <Card
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
           className='bg-neutral-900 border-none my-2'
         >
           <CardHeader>
@@ -80,7 +75,5 @@ export const TodoCard: React.FC<TodoCardProps> = ({ todo, index }) => {
             />
           </CardFooter>
         </Card>
-      )}
-    </Draggable>
   );
 };

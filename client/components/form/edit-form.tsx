@@ -27,10 +27,9 @@ import { newTodoState } from "@/app/state/atom";
 
 type NewTodoFormProps = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  id: string; // Pass the ID of the todo you want to edit
+  id: string; 
 };
 
-// Function to fetch the existing todo by ID
 const fetchTodoById = async (id: string): Promise<NewTodo | null> => {
   try {
     const response = await axios.get(`http://localhost:3000/api/todos/${id}`, {
@@ -43,7 +42,6 @@ const fetchTodoById = async (id: string): Promise<NewTodo | null> => {
   }
 };
 
-// Pass the id to the updateTodo function and use it in the API call
 const updateTodo = async (id: string, todo: NewTodo) => {
   try {
     await axios.put(
@@ -70,12 +68,12 @@ const EditTodoForm = ({ setOpen, id }: NewTodoFormProps) => {
     },
   });
 
-  // Fetch the todo when the component mounts and set the form with its values
+
   useEffect(() => {
     const loadTodo = async () => {
       const existingTodo = await fetchTodoById(id);
       if (existingTodo) {
-        form.reset(existingTodo); // Reset the form with the existing todo values
+        form.reset(existingTodo); 
       }
     };
     loadTodo();
@@ -83,9 +81,10 @@ const EditTodoForm = ({ setOpen, id }: NewTodoFormProps) => {
 
   const onSubmit = async (values: NewTodo) => {
     try {
-      await updateTodo(id, values);  // Use the updateTodo function to update
-      setNewTodo(values);  // Update Recoil state with the new values
-      setOpen(false);  // Close the modal
+      await updateTodo(id, values);  
+      setNewTodo(values);
+      console.log(newTodo);
+      setOpen(false);  
     } catch (error) {
       console.error("Error updating todo:", error);
       toast.error("Failed to update todo. Please try again.");

@@ -18,7 +18,7 @@ const MarketingPage = () => {
       <div className="text-sm md:text-xl text-neutral-400 mt-2 max-w-xs md:max-wd-2xl text-center mx-auto">
       </div>
       <Button className="mt-6 font-semibold bg-white text-black hover:bg-zinc-300 hover:text-black" size={"lg"}  asChild>
-        <Link href={"/sign-up"} >Get Stack'd</Link>
+        <Link href={"/sign-up"} >Get Stack&apos;d</Link>
       </Button>
     </div>
   );

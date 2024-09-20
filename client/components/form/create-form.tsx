@@ -54,14 +54,14 @@ const CreateTodoForm = ({ setOpen }: NewTodoFormProps) => {
     },
   });
 
-  // Use Recoil state for newTodo
   const [newTodo, setNewTodo] = useRecoilState(newTodoState);
 
   const onSubmit = async (values: NewTodo) => {
     try {
       await addTodo(values);
-      setNewTodo(values);  // Update Recoil atom after successfully adding a todo
-      setOpen(false);  // Close the form
+      setNewTodo(values); 
+      setOpen(false);  
+      console.log(newTodo);
     } catch (error) {
       console.error('Error adding todo:', error);
       toast.error("Failed to add todo. Please try again.");
