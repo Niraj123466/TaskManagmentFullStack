@@ -20,7 +20,6 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const router = useRouter();
 
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -35,13 +34,13 @@ const SignIn = () => {
   return (
     <div className="min-h-screen bg-zinc-950">
       <div className="grid grid-cols-2">
-        <div className="col-span-1 h-screen flex justify-center items-center">
+        <div className="col-span-1 h-screen justify-center items-center hidden md:flex">
           <div className="flex items-center justify-center">
-          <h1 className="text-4xl text-white font-bold">Stack&apos;d</h1>
-
+            <h1 className="text-4xl text-white font-bold">Stack&apos;d</h1>
           </div>
         </div>
-        <div className="col-span-1 h-screen flex items-center justify-center bg-neutral-200">
+
+        <div className="col-span-2 md:col-span-1 h-screen flex items-center justify-center bg-neutral-200">
           <Card className="min-w-[400px]">
             <CardHeader>
               <CardTitle className="flex items-center justify-center">

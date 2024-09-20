@@ -87,13 +87,14 @@ const KanbanBoard: React.FC = () => {
   return (
     <div className="container mx-auto p-4 mt-6 bg-zinc-950">
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className="flex justify-between">
+        <div className="flex flex-col md:flex-row justify-between md:space-x-4">
           {columns.map((column) => (
-            <ColumnCard
-              key={column}
-              column={column}
-              todos={columnTodos[column]}
-            />
+            <div className="flex-1 mb-4 md:mb-0" key={column}>
+              <ColumnCard
+                column={column}
+                todos={columnTodos[column]}
+              />
+            </div>
           ))}
         </div>
       </DragDropContext>
