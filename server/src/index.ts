@@ -21,8 +21,12 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/todos', todoRoutes);
 
+app.use('/hello',(req, res)=>{
+  res.send("Server is healthy.")
+});
+
 const PORT = Number (process.env.PORT) || 3000;
 
-app.listen(PORT,"0.0.0.0", () => {
+app.listen(PORT,() => {
   console.log(`Server running on port ${PORT}`);
 });
