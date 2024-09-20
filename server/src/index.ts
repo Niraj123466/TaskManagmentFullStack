@@ -21,7 +21,7 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/todos', todoRoutes);
 
-app.use('/hello',(req, res)=>{
+app.use('/',(req, res)=>{
   res.send("Server is healthy.")
 });
 
