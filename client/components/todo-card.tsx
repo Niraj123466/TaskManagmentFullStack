@@ -4,11 +4,14 @@ import { Edit2, Trash2 } from 'lucide-react';
 import { Todo } from "./kanban";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
 import { Separator } from './ui/separator';
+import axios from 'axios';
+import { useSetRecoilState } from 'recoil';
+import { todosState } from '@/app/state/atom';
+import EditTodoModal from './edit-todo-modal';
 
 interface TodoCardProps {
   todo: Todo;
   index: number;
-  onDelete?: (id: string) => void;
 }
 
 const priorityColors = {
@@ -24,8 +27,17 @@ const statusColors = {
 };
 
 export const TodoCard: React.FC<TodoCardProps> = ({ todo, index }) => {
-  const handleDelete = ({id}:{id:string}) => {
+  const setTodos = useSetRecoilState(todosState);
 
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`http://localhost:3000/api/todos/${todo._id}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      });
+      setTodos((prevTodos) => prevTodos.filter((t) => t._id !== todo._id));
+    } catch (error) {
+      console.error("Error deleting todo:", error);
+    }
   };
 
   return (
@@ -40,13 +52,13 @@ export const TodoCard: React.FC<TodoCardProps> = ({ todo, index }) => {
           <CardHeader>
             <div className="flex items-center justify-start gap-2 mb-2">
               <div
-                className={`text-white px-2 w-[70px] md:px-4 py-1 flex items-center justify-center rounded-full shadow-sm border ${statusColors[todo.status]}`}
+                className={`px-2 w-[70px] md:px-4 py-1 flex items-center justify-center rounded-full shadow-sm border ${statusColors[todo.status]}`}
                 key={`status-${index}`}
               >
                 <h1 className='text-xs'>{todo.status}</h1>
               </div>
               <div
-                className={`text-white px-2 w-[70px] md:px-4 py-1 flex items-center justify-center rounded-full shadow-sm border ${priorityColors[todo.priority]}`}
+                className={`px-2 w-[70px] md:px-4 py-1 flex items-center justify-center rounded-full shadow-sm border ${priorityColors[todo.priority]}`}
                 key={`priority-${index}`}
               >
                 <h1 className='text-xs'>{todo.priority}</h1>
@@ -54,7 +66,7 @@ export const TodoCard: React.FC<TodoCardProps> = ({ todo, index }) => {
             </div>
             <div className='flex items-center justify-between'>
               <CardTitle className='text-white'>{todo.title}</CardTitle>
-              <Edit2 className='text-white h-4 w-4'/>
+              <EditTodoModal id={todo._id}/>
             </div>
           </CardHeader>
           <CardContent>
@@ -64,7 +76,7 @@ export const TodoCard: React.FC<TodoCardProps> = ({ todo, index }) => {
           <CardFooter className="relative">
             <Trash2
               className='text-neutral-500 h-5 w-4 cursor-pointer absolute left-2 mt-4'
-              onClick={()=>{handleDelete(todo._id)}}
+              onClick={handleDelete}
             />
           </CardFooter>
         </Card>

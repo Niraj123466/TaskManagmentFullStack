@@ -3,8 +3,8 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { DragDropContext, DropResult } from '@hello-pangea/dnd';
 import axios from 'axios';
-import { useRecoilValue } from 'recoil';
-import { newTodoState } from '@/app/state/atom';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { newTodoState, todosState } from '@/app/state/atom';
 import { ColumnCard } from '@/components/column-card';
 
 export interface Todo {
@@ -18,7 +18,8 @@ export interface Todo {
 const columns = ['todo', 'inProgress', 'done'];
 
 const KanbanBoard: React.FC = () => {
-  const [todos, setTodos] = useState<Todo[]>([]);
+  const [todos, setTodos] = useRecoilState(todosState);
+  //const [todos, setTodos] = useState<Todo[]>([]);
   const newTodo = useRecoilValue(newTodoState);
 
   const fetchTodos = useCallback(async () => {
