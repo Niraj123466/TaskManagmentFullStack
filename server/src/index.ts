@@ -21,9 +21,6 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/todos', todoRoutes);
 
-app.use('/',(req, res)=>{
-  res.send("Server is healthy.")
-});
 
 const PORT = Number (process.env.PORT) || 3000;
 

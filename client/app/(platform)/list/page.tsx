@@ -20,6 +20,13 @@ const TodoList: React.FC = () => {
     const router = useRouter();
     const [todos, setTodos] = useRecoilState(todosState);
 
+    useEffect(() => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        router.push('/sign-in');
+      }
+    }, [router]);
+
   useEffect(() => {
     const fetchTodos = async () => {
       try {

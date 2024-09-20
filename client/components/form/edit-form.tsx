@@ -182,7 +182,7 @@ const EditTodoForm = ({ setOpen, id }: NewTodoFormProps) => {
                 </FormLabel>
                 <Select
                   onValueChange={field.onChange}
-                  value={field.value} // Use field value for select
+                  value={field.value} 
                 >
                   <FormControl>
                     <SelectTrigger>

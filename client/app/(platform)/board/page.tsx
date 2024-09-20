@@ -12,7 +12,7 @@ export default function Board() {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
-      router.push('/signin');
+      router.push('/sign-in');
     }
   }, [router]);
 
