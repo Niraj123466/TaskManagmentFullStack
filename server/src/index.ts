@@ -11,9 +11,9 @@ connectDB();
 const app = express();
 
 app.use(cors({
-  origin: 'http://localhost:3001', // Replace with your Next.js frontend URL
+  origin: 'http://localhost:3001', 
   methods: 'GET,POST,PUT,PATCH,DELETE',
-  credentials: true, // Allow cookies and credentials
+  credentials: true, 
 }));
 app.use(express.json());
 

@@ -54,7 +54,7 @@ const TodoList: React.FC = () => {
       >Board view</Button>
       </div>
       <div className='mt-4 ml-10'>
-      <ul className='w-full'> {/* Set a max width for the ul */}
+      <ul className='w-full'> 
         {todos.map((todo, index) => (
           <TodoInnerCard
             todo={todo}

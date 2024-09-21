@@ -10,7 +10,7 @@ interface ColumnCardProps {
 }
 
 export const ColumnCard: React.FC<ColumnCardProps> = ({ column, todos }) => {
-  // Determine the border color based on the column name
+
   const getBorderColor = (column: string) => {
     switch (column) {
       case 'todo':

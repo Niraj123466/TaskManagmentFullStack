@@ -19,11 +19,11 @@ import {
 } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { NewTodo, newTodoSchema } from "@/app/schema/index"; // Update with your schema file
+import { NewTodo, newTodoSchema } from "@/app/schema/index"; 
 import axios from "axios";
 import { toast } from "sonner";
-import { useRecoilState } from "recoil";  // Import Recoil hooks
-import { newTodoState } from "@/app/state/atom";  // Import your Recoil atom
+import { useRecoilState } from "recoil"; 
+import { newTodoState } from "@/app/state/atom"; 
 
 type NewTodoFormProps = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;

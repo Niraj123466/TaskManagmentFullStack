@@ -1,4 +1,4 @@
-// atoms.ts
+
 import { atom } from 'recoil';
 
 export interface NewTodo {
@@ -17,7 +17,7 @@ export interface Todo {
 }
 
 export const newTodoState = atom<NewTodo>({
-  key: 'newTodoState', // unique ID (with respect to other atoms/selectors)
+  key: 'newTodoState',
   default: {
     title: '',
     description: '',
