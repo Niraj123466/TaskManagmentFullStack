@@ -54,21 +54,20 @@ export const deleteTodo = async (req: Request, res: Response) => {
 
 export const updateTodo = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;  // The ID of the todo to update
-    const { title, description, priority, status } = req.body;  // Fields to update
+    const { id } = req.params; 
+    const { title, description, priority, status } = req.body;  
 
-    // Find the todo by ID and update it
     const todo = await Todo.findOneAndUpdate(
-      { _id: id, user: req.user!._id },  // Match todo by its ID and the current user
-      { title, description, priority, status },  // Fields to update
-      { new: true, runValidators: true }  // Return the updated todo and run validation
+      { _id: id, user: req.user!._id },
+      { title, description, priority, status }, 
+      { new: true, runValidators: true }  
     );
 
     if (!todo) {
       return res.status(404).json({ message: 'Todo not found' });
     }
 
-    res.json(todo);  // Respond with the updated todo
+    res.json(todo);
   } catch (error) {
     res.status(500).json({ message: 'Error updating todo' });
   }
