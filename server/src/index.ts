@@ -10,11 +10,11 @@ connectDB();
 
 const app = express();
 
-app.use(cors({
-  origin: 'http://localhost:3001', 
-  methods: 'GET,POST,PUT,PATCH,DELETE',
-  credentials: true, 
-}));
+const corsOptions = {
+  origin: ['https://your-frontend-url.vercel.app',"http://localhost:3000"], // Change this to your frontend's URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Add the methods you need
+  credentials: true // Allow credentials if needed
+};
 app.use(express.json());
 
 
