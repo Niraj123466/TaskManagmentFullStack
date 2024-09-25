@@ -59,7 +59,7 @@ const SignIn = () => {
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    placeholder="devansh"
+                    placeholder="Niraj"
                   />
                 </div>
                 <div>
