@@ -32,7 +32,7 @@ type NewTodoFormProps = {
 const addTodo = async (todo: NewTodo) => {
   try {
     await axios.post(
-      'http://localhost:3000/api/todos',
+      'task-managment-full-stack-server-ottb5l2iy-niraj-mores-projects.vercel.app',
       todo,
       { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
     );

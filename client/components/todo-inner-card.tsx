@@ -31,7 +31,7 @@ export const TodoInnerCard: React.FC<TodoCardProps> = ({ todo, index }) => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:3000/api/todos/${todo._id}`, {
+      await axios.delete(`task-managment-full-stack-server-ottb5l2iy-niraj-mores-projects.vercel.app/api/todos/${todo._id}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       setTodos((prevTodos) => prevTodos.filter((t) => t._id !== todo._id));

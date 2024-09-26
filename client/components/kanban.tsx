@@ -67,7 +67,7 @@ const KanbanBoard: React.FC = () => {
 
     try {
       await axios.patch(
-        `http://localhost:3000/api/todos/${draggableId}`,
+        `task-managment-full-stack-server-ottb5l2iy-niraj-mores-projects.vercel.app/api/todos/${draggableId}`,
         { status: destination.droppableId },
         { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       );
