@@ -13,7 +13,7 @@ const app = express();
 // CORS configuration
 const corsOptions = {
   origin: [
-    'https://your-frontend-url.vercel.app', // Update with your frontend URL
+    'https://task-managment-full-stack-client-3uibve5g6-niraj-mores-projects.vercel.app/', // Update with your frontend URL
     'http://localhost:3000', // For local development
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
