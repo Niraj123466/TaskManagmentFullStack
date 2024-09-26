@@ -26,7 +26,7 @@ const SignIn = () => {
     e.preventDefault();
 
     try {
-      await axios.post('task-managment-full-stack-server-ottb5l2iy-niraj-mores-projects.vercel.app/api/auth/signup', { username, email, password });
+      await axios.post('http://localhost:3000/api/auth/signup', { username, email, password });
       router.push('/sign-in');
     } catch (error) {
       console.log(error)

@@ -12,7 +12,7 @@ const app = express();
 
 // CORS configuration
 const corsOptions = {
-  origin: "https://task-managment-full-stack-client-3uibve5g6-niraj-mores-projects.vercel.app",
+  origin: "*",
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
   credentials: true, // Allow credentials
 };

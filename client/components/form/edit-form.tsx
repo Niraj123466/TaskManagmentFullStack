@@ -45,7 +45,7 @@ const fetchTodoById = async (id: string): Promise<NewTodo | null> => {
 const updateTodo = async (id: string, todo: NewTodo) => {
   try {
     await axios.put(
-      `task-managment-full-stack-server-ottb5l2iy-niraj-mores-projects.vercel.app/api/todos/${id}`, 
+      `http://localhost:3000/api/todos/${id}`, 
       todo,
       { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
     );

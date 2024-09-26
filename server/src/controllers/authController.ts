@@ -84,3 +84,8 @@ export const signin = async (req: Request, res: Response) => {
     res.status(500).json({ message: 'Error signing in' });
   }
 };
+
+export const logout = async function(req: Request, res : Response) {
+  res.clearCookie('token'); // Assuming you are using cookies for token storage
+  res.status(200).json({ message: 'Logged out successfully' });
+}
