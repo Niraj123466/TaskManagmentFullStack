@@ -68,7 +68,7 @@ const SignIn = () => {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="devansh@domain.com"
+                    placeholder="moreniraj49@gmail.com"
                   />
                 </div>
                 <div>

@@ -21,6 +21,7 @@ const corsOptions = {
 app.use(cors(corsOptions)); // Use CORS middleware
 app.use(express.json()); // Parse JSON bodies
 
+
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/todos', todoRoutes);

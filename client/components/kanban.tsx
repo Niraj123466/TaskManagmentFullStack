@@ -23,7 +23,7 @@ const KanbanBoard: React.FC = () => {
 
   const fetchTodos = useCallback(async () => {
     try {
-      const response = await axios.get<Todo[]>('http://localhost:3000/api/todos', {
+      const response = await axios.get<Todo[]>('task-managment-full-stack-server-ottb5l2iy-niraj-mores-projects.vercel.app/api/todos', {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       setTodos(response.data);
